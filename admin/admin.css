@@ -1,0 +1,506 @@
+/* CSS Variables */
+:root {
+    --dvsc-primary: #0073aa;
+    --dvsc-primary-dark: #005a87;
+    --dvsc-primary-light: #e8f4fd;
+    --dvsc-primary-lighter: #d7ecf7;
+    --dvsc-success: #00a32a;
+    --dvsc-success-light: rgba(0, 163, 42, 0.2);
+    --dvsc-error: #d63638;
+    --dvsc-error-light: rgba(214, 54, 56, 0.2);
+    --dvsc-error-bg: #fff2f0;
+    --dvsc-warning: #dba617;
+    --dvsc-text-primary: #23282d;
+    --dvsc-text-secondary: #32373c;
+    --dvsc-text-muted: #646970;
+    --dvsc-border: #ccd0d4;
+    --dvsc-border-light: #dcdcde;
+    --dvsc-border-lighter: #e1e5e9;
+    --dvsc-bg-white: #fff;
+    --dvsc-bg-light: #f6f7f7;
+    --dvsc-bg-lighter: #f8f9fa;
+    --dvsc-shadow: 0 1px 1px rgba(0,0,0,.04);
+    --dvsc-shadow-hover: 0 2px 8px rgba(0,0,0,0.1);
+    --dvsc-border-radius: 4px;
+    --dvsc-border-radius-sm: 3px;
+    --dvsc-font-mono: Consolas, Monaco, monospace;
+    --dvsc-transition: all 0.2s ease;
+}
+
+.debug-vscode-admin {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.debug-vscode-main {
+    background: var(--dvsc-bg-white);
+    padding: 20px;
+    border: 1px solid var(--dvsc-border);
+    border-radius: var(--dvsc-border-radius);
+    box-shadow: var(--dvsc-shadow);
+}
+
+.debug-vscode-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.debug-vscode-card {
+    background: var(--dvsc-bg-white);
+    padding: 15px;
+    border: 1px solid var(--dvsc-border);
+    border-radius: var(--dvsc-border-radius);
+    box-shadow: var(--dvsc-shadow);
+}
+
+.debug-vscode-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--dvsc-text-primary);
+}
+
+.debug-vscode-status-card {
+    background: var(--dvsc-bg-lighter);
+    border: 1px solid var(--dvsc-border-lighter);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.debug-vscode-status-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--dvsc-text-secondary);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-indicator.enabled {
+    color: var(--dvsc-success);
+}
+
+.status-indicator.enabled .status-dot {
+    background-color: var(--dvsc-success);
+    box-shadow: 0 0 0 3px var(--dvsc-success-light);
+}
+
+.status-indicator.disabled {
+    color: var(--dvsc-error);
+}
+
+.status-indicator.disabled .status-dot {
+    background-color: var(--dvsc-error);
+    box-shadow: 0 0 0 3px var(--dvsc-error-light);
+}
+
+.endpoint-info, .api-key-info, .complete-url-info {
+    margin-bottom: 15px;
+}
+
+.endpoint-info h4, .api-key-info h4, .complete-url-info h4 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dvsc-text-muted);
+}
+
+/* Click-to-Copy System - Unified Modern Component */
+.click-to-copy {
+    /* Layout */
+    position: relative;
+    display: inline-flex;
+    
+    min-width: fit-content;
+    
+    /* Styling */
+    background: var(--dvsc-primary-light);
+    border: 1px solid var(--dvsc-primary);
+    border-radius: var(--dvsc-border-radius-sm);
+    color: var(--dvsc-primary);
+    font-weight: 500;
+    font-family: var(--dvsc-font-mono);
+    font-size: 12px;
+    
+    /* Spacing */
+    padding: 8px 12px;
+    
+    
+    /* Text handling */
+    word-break: break-all;
+    overflow-wrap: break-word;
+    
+    /* Interactions */
+    cursor: pointer;
+    transition: var(--dvsc-transition);
+    user-select: none;
+}
+
+.click-to-copy:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--dvsc-shadow-hover);
+    background: var(--dvsc-primary-lighter);
+    border-color: var(--dvsc-primary-dark);
+}
+
+.click-to-copy:active {
+    transform: translateY(0);
+    box-shadow: var(--dvsc-shadow);
+}
+
+/* Tooltip */
+.click-to-copy::after {
+    content: 'Clicca per copiare';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dvsc-text-secondary);
+    color: white;
+    padding: 6px 10px;
+    border-radius: var(--dvsc-border-radius-sm);
+    font-size: 11px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: normal;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+.click-to-copy:hover::after {
+    opacity: 1;
+}
+
+/* Success state */
+.click-to-copy.copied {
+    background: var(--dvsc-success-light);
+    border-color: var(--dvsc-success);
+    color: var(--dvsc-success);
+    animation: copySuccess 0.3s ease;
+}
+
+.click-to-copy.copied::after {
+    content: 'Copiato!';
+    background: var(--dvsc-success);
+    opacity: 1;
+}
+
+@keyframes copySuccess {
+    0% { transform: scale(1) translateY(-1px); }
+    50% { transform: scale(1.02) translateY(-1px); }
+    100% { transform: scale(1) translateY(-1px); }
+}
+
+
+
+.usage-examples {
+    margin-top: 15px;
+}
+
+.usage-examples h4 {
+    margin: 15px 0 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dvsc-text-muted);
+}
+
+.usage-examples pre {
+    background: var(--dvsc-bg-light);
+    border: 1px solid var(--dvsc-border-light);
+    border-radius: var(--dvsc-border-radius-sm);
+    padding: 12px;
+    margin: 8px 0;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.usage-examples code {
+    font-family: var(--dvsc-font-mono);
+    color: var(--dvsc-text-secondary);
+}
+
+.usage-examples ul {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.usage-examples li {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.usage-examples li code {
+    background: var(--dvsc-bg-light);
+    padding: 2px 6px;
+    border-radius: var(--dvsc-border-radius-sm);
+    font-size: 12px;
+}
+
+/* Modern Button Styles */
+.button.test-endpoint {
+    background: var(--dvsc-primary);
+    border-color: var(--dvsc-primary);
+    color: white !important;
+    transition: var(--dvsc-transition);
+}
+
+.button.test-endpoint:hover,
+.button.test-endpoint:focus {
+    background: var(--dvsc-primary-dark);
+    border-color: var(--dvsc-primary-dark);
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: var(--dvsc-shadow-hover);
+}
+
+.button.button-primary {
+    color: white !important;
+    transition: var(--dvsc-transition);
+}
+
+.button[style*="background"] {
+    color: white !important;
+    transition: var(--dvsc-transition);
+}
+
+.notice.inline {
+    margin: 10px 0 0 0;
+    padding: 8px 12px;
+}
+
+.notice.inline p {
+    margin: 0;
+    font-size: 13px;
+}
+
+#test-result {
+    background: var(--dvsc-bg-light);
+    border: 1px solid var(--dvsc-border-light);
+    border-radius: var(--dvsc-border-radius-sm);
+    padding: 10px;
+    font-family: var(--dvsc-font-mono);
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    transition: var(--dvsc-transition);
+}
+
+#test-result.success {
+    border-color: var(--dvsc-success);
+    background-color: var(--dvsc-success-light);
+    color: var(--dvsc-success);
+}
+
+#test-result.error {
+    border-color: var(--dvsc-error);
+    background-color: var(--dvsc-error-bg);
+    color: var(--dvsc-error);
+}
+
+.debug-vscode-stats {
+    font-size: 13px;
+}
+
+.debug-vscode-stats .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.debug-vscode-stats .stat-item {
+    background: var(--dvsc-bg-light);
+    padding: 8px;
+    border-radius: var(--dvsc-border-radius-sm);
+    text-align: center;
+    border: 1px solid var(--dvsc-border-light);
+    transition: var(--dvsc-transition);
+}
+
+.debug-vscode-stats .stat-item:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--dvsc-shadow);
+}
+
+.debug-vscode-stats .stat-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dvsc-text-secondary);
+    display: block;
+}
+
+.debug-vscode-stats .stat-label {
+    font-size: 11px;
+    color: var(--dvsc-text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .debug-vscode-admin {
+        grid-template-columns: 1fr;
+    }
+    
+    .debug-vscode-sidebar {
+        order: -1;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    transition: var(--dvsc-transition);
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--dvsc-border-light);
+    border-top: 2px solid var(--dvsc-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Enhanced Tooltips */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dvsc-text-secondary);
+    color: white;
+    padding: 6px 10px;
+    border-radius: var(--dvsc-border-radius);
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease forwards;
+}
+
+.tooltip:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--dvsc-text-secondary);
+    z-index: 1000;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease forwards;
+}
+
+@keyframes tooltipFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Specific Component Styles */
+#delete-after-read-section {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0f8ff;
+    border: 1px solid #cce6ff;
+    border-radius: var(--dvsc-border-radius);
+}
+
+.delete-after-read-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.delete-url-info {
+    margin-top: 15px;
+}
+
+.delete-url-info.hidden {
+    display: none;
+}
+
+#test-result {
+    margin-top: 10px;
+}
+
+/* Reset Section Styles */
+.reset-section-title {
+    color: var(--dvsc-error) !important;
+}
+
+.reset-section-description {
+    margin-bottom: 15px;
+}
+
+.reset-warning-box {
+    background: #fff3f3;
+    border: 1px solid #f5c5c5;
+    border-radius: var(--dvsc-border-radius);
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.reset-warning-title {
+    color: var(--dvsc-error);
+}
+
+.reset-warning-text {
+    margin: 5px 0 0 0;
+    font-size: 13px;
+}
+
+.reset-warning-list {
+    font-size: 13px;
+    margin: 8px 0 0 20px;
+}
+
+.reset-form {
+    display: inline;
+}
+
+.reset-button {
+    background: var(--dvsc-error) !important;
+    border-color: var(--dvsc-error) !important;
+    color: white !important;
+}
