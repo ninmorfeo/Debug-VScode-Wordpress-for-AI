@@ -63,61 +63,21 @@ Il plugin aggiornerà automaticamente `wp-config.php` con:
 define('DEBUG_VSCODE_API_KEY', 'your_generated_key');
 ```
 
-## Utilizzo API
+## Esempi di Utilizzo
 
-### Endpoint Disponibili
+Una volta configurato correttamente il plugin, potrai accedere facilmente ai log di WordPress attraverso l'endpoint REST API dedicato. Di seguito alcuni esempi pratici per iniziare immediatamente:
 
-**🔍 Lettura Log**
+**� Accesso Standard ai Log**
 ```
-GET /wp-json/debug-vscode/v1/logs
+https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?api_key=Value
 ```
-Parametri opzionali:
-- `lines=100` - Numero righe da leggere (default: 100)
-- `from_bottom=true` - Leggi dalla fine (true) o inizio (false) 
-- `cancella=si` - Cancella dopo lettura (se abilitato)
+Questo endpoint ti permette di leggere i log di debug in formato JSON, ideale per l'integrazione con strumenti di sviluppo e monitoraggio.
 
-**📊 Status Sistema**
+**🗑️ Lettura con Cancellazione Automatica**
 ```
-GET /wp-json/debug-vscode/v1/status
+https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
 ```
-Ritorna: versioni WordPress/PHP, stato debug, timestamp
-
-**🗑️ Cancellazione Log**
-```
-DELETE /wp-json/debug-vscode/v1/delete-log
-```
-Richiede: opzione "cancellazione dopo lettura" abilitata
-
-### Esempi Pratici
-
-**cURL Semplice**
-```bash
-curl "https://tuosito.com/wp-json/debug-vscode/v1/logs?api_key=dvsc_abc123_1234567890"
-```
-
-**Con Header (raccomandato)**  
-```bash
-curl -H "X-API-Key: dvsc_abc123_1234567890"      "https://tuosito.com/wp-json/debug-vscode/v1/logs?lines=50"
-```
-
-**JavaScript/Fetch**
-```javascript
-fetch('/wp-json/debug-vscode/v1/logs', {
-    headers: { 'X-API-Key': 'dvsc_abc123_1234567890' }
-})
-.then(res => res.json())
-.then(data => console.log(data.logs));
-```
-
-**Python**
-```python
-import requests
-response = requests.get(
-    'https://tuosito.com/wp-json/debug-vscode/v1/logs',
-    headers={'X-API-Key': 'dvsc_abc123_1234567890'}
-)
-logs = response.json()['logs']
-```
+Utilizza questo endpoint quando desideri cancellare automaticamente i log dopo ogni lettura, mantenendo il sistema pulito e ottimizzato per le prestazioni.
 
 ## Sicurezza
 
@@ -136,17 +96,6 @@ logs = response.json()['logs']
 - **Durata Blocco**: 60-3600 secondi (default: 300 = 5 min)
 - **Reset Automatico**: Su autenticazione corretta
 - **Pulizia Cron**: Giornaliera per prestazioni ottimali
-
-## Sviluppo
-
-Per contribuire allo sviluppo del plugin:
-
-1. Clona il repository
-2. Crea un nuovo branch per la tua feature (`git checkout -b feature/AmazingFeature`)
-3. Fai i tuoi cambiamenti
-4. Commit (`git commit -m 'Add some AmazingFeature'`)
-5. Push al branch (`git push origin feature/AmazingFeature`)
-6. Apri una Pull Request
 
 ## Changelog
 
@@ -238,61 +187,21 @@ The plugin will automatically update `wp-config.php` with:
 define('DEBUG_VSCODE_API_KEY', 'your_generated_key');
 ```
 
-## API Usage
+## Usage Examples
 
-### Available Endpoints
+Once the plugin is properly configured, you can easily access WordPress logs through the dedicated REST API endpoint. Here are some practical examples to get you started immediately:
 
-**🔍 Log Reading**
+**� Standard Log Access**
 ```
-GET /wp-json/debug-vscode/v1/logs
+https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?api_key=Value
 ```
-Optional parameters:
-- `lines=100` - Number of lines to read (default: 100)
-- `from_bottom=true` - Read from end (true) or beginning (false) 
-- `cancella=si` - Delete after reading (if enabled)
+This endpoint allows you to read debug logs in JSON format, perfect for integration with development and monitoring tools.
 
-**📊 System Status**
+**🗑️ Read with Automatic Deletion**
 ```
-GET /wp-json/debug-vscode/v1/status
+https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
 ```
-Returns: WordPress/PHP versions, debug status, timestamp
-
-**🗑️ Log Deletion**
-```
-DELETE /wp-json/debug-vscode/v1/delete-log
-```
-Requires: "delete after reading" option enabled
-
-### Practical Examples
-
-**Simple cURL**
-```bash
-curl "https://yoursite.com/wp-json/debug-vscode/v1/logs?api_key=dvsc_abc123_1234567890"
-```
-
-**With Header (recommended)**  
-```bash
-curl -H "X-API-Key: dvsc_abc123_1234567890"      "https://yoursite.com/wp-json/debug-vscode/v1/logs?lines=50"
-```
-
-**JavaScript/Fetch**
-```javascript
-fetch('/wp-json/debug-vscode/v1/logs', {
-    headers: { 'X-API-Key': 'dvsc_abc123_1234567890' }
-})
-.then(res => res.json())
-.then(data => console.log(data.logs));
-```
-
-**Python**
-```python
-import requests
-response = requests.get(
-    'https://yoursite.com/wp-json/debug-vscode/v1/logs',
-    headers={'X-API-Key': 'dvsc_abc123_1234567890'}
-)
-logs = response.json()['logs']
-```
+Use this endpoint when you want to automatically delete logs after each read, keeping your system clean and optimized for performance.
 
 ## Security
 
@@ -311,17 +220,6 @@ logs = response.json()['logs']
 - **Lock Duration**: 60-3600 seconds (default: 300 = 5 min)
 - **Automatic Reset**: On correct authentication
 - **Cron Cleanup**: Daily for optimal performance
-
-## Development
-
-To contribute to plugin development:
-
-1. Clone the repository
-2. Create a new branch (`git checkout -b feature/AmazingFeature`)
-3. Make your changes
-4. Commit (`git commit -m 'Add some AmazingFeature'`)
-5. Push (`git push origin feature/AmazingFeature`)
-6. Open a Pull Request
 
 ## Changelog
 
