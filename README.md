@@ -5,11 +5,44 @@
 [![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/stars/debug-vscode)](https://wordpress.org/support/plugin/debug-vscode/reviews/)
 [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/ninmorfeo/Debug-VScode-Wordpress-for-AI/blob/main/LICENSE)
 
+Access WordPress logs through a secure REST API. Perfect for debugging with VSCode and other development tools.
+
 Accedi ai log di WordPress tramite API REST sicura. Perfetto per debugging con VSCode e strumenti di sviluppo esterni.
 
-## Descrizione
+## Description
+
+**Debug VSCode** transforms WordPress into an API endpoint for your debug logs, making development more efficient and professional.
 
 **Debug VSCode** trasforma WordPress in un endpoint API per i tuoi log di debug, rendendo lo sviluppo più efficiente e professionale.
+
+### 🚀 Key Features
+
+* **3 Secure REST API Endpoints**
+  - `GET /logs` - Read log files with advanced options
+  - `GET /status` - System and configuration information  
+  - `DELETE /delete-log` - Controlled log deletion
+
+* **Multi-Level Authentication**
+  - Automatically generated API key (`dvsc_[random]_[timestamp]`)
+  - Support for `X-API-Key` and `Authorization Bearer` headers
+  - Automatic integration with wp-config.php for maximum security
+
+* **Anti-Brute Force Protection**
+  - Configurable rate limiting per IP
+  - Automatic temporary blocks (default: 10 attempts, 5 minutes)
+  - Automatic cleanup of expired data via cron job
+
+* **Customizable Log Reading**
+  - Configurable log file (debug.log, error.log, custom.log)
+  - Control of lines to read (`lines` parameter)
+  - Reading from beginning or end of file (`from_bottom` parameter)
+  - Secure deletion after reading option
+
+* **Professional Admin Interface**
+  - Intuitive panel in **Tools → Debug VSCode**
+  - Integrated endpoint testing with response preview
+  - Copy URLs and API keys with one click
+  - Real-time settings management via AJAX
 
 ### 🚀 Caratteristiche Principali
 
@@ -40,6 +73,14 @@ Accedi ai log di WordPress tramite API REST sicura. Perfetto per debugging con V
   - Copia URL e chiavi API con un click
   - Gestione real-time delle impostazioni via AJAX
 
+### 💡 Ideal Use Cases
+
+✅ **VSCode Development** - Extensions that read WordPress logs  
+✅ **Remote Monitoring** - Alert and notification systems  
+✅ **Advanced Debugging** - Real-time log analysis  
+✅ **CI/CD Pipeline** - Test and deployment automation  
+✅ **DevOps Tools** - Integration with custom dashboards
+
 ### 💡 Casi d'Uso Ideali
 
 ✅ **Sviluppo con VSCode** - Estensioni che leggono log WordPress  
@@ -47,6 +88,18 @@ Accedi ai log di WordPress tramite API REST sicura. Perfetto per debugging con V
 ✅ **Debug Avanzato** - Analisi log in tempo reale  
 ✅ **CI/CD Pipeline** - Automazione test e deploy  
 ✅ **Strumenti DevOps** - Integrazione con dashboard personalizzate
+
+## Installation
+
+1. **Upload** the plugin to `/wp-content/plugins/debug-vscode/`
+2. **Activate** via WordPress Admin → Plugins
+3. **Configure** in **Tools → Debug VSCode**
+4. **Enable** the API and save to automatically generate the key
+
+The plugin will automatically update `wp-config.php` with:
+```php
+define('DEBUG_VSCODE_API_KEY', 'your_generated_key');
+```
 
 ## Installazione
 
@@ -60,7 +113,32 @@ Il plugin aggiornerà automaticamente `wp-config.php` con:
 define('DEBUG_VSCODE_API_KEY', 'your_generated_key');
 ```
 
-## Utilizzo API
+## API Usage
+
+### Available Endpoints
+
+**🔍 Log Reading**
+```
+GET /wp-json/debug-vscode/v1/logs
+```
+Optional parameters:
+- `lines=100` - Number of lines to read (default: 100)
+- `from_bottom=true` - Read from end (true) or beginning (false) 
+- `cancella=si` - Delete after reading (if enabled)
+
+**📊 System Status**
+```
+GET /wp-json/debug-vscode/v1/status
+```
+Returns: WordPress/PHP versions, debug status, timestamp
+
+**🗑️ Log Deletion**
+```
+DELETE /wp-json/debug-vscode/v1/delete-log
+```
+Requires: "delete after reading" option enabled
+
+### Utilizzo API
 
 ### Endpoint Disponibili
 
@@ -84,6 +162,38 @@ Ritorna: versioni WordPress/PHP, stato debug, timestamp
 DELETE /wp-json/debug-vscode/v1/delete-log
 ```
 Richiede: opzione "cancellazione dopo lettura" abilitata
+
+### Practical Examples
+
+**Simple cURL**
+```bash
+curl "https://yoursite.com/wp-json/debug-vscode/v1/logs?api_key=dvsc_abc123_1234567890"
+```
+
+**With Header (recommended)**  
+```bash
+curl -H "X-API-Key: dvsc_abc123_1234567890" \
+     "https://yoursite.com/wp-json/debug-vscode/v1/logs?lines=50"
+```
+
+**JavaScript/Fetch**
+```javascript
+fetch('/wp-json/debug-vscode/v1/logs', {
+    headers: { 'X-API-Key': 'dvsc_abc123_1234567890' }
+})
+.then(res => res.json())
+.then(data => console.log(data.logs));
+```
+
+**Python**
+```python
+import requests
+response = requests.get(
+    'https://yoursite.com/wp-json/debug-vscode/v1/logs',
+    headers={'X-API-Key': 'dvsc_abc123_1234567890'}
+)
+logs = response.json()['logs']
+```
 
 ### Esempi Pratici
 
@@ -117,7 +227,16 @@ response = requests.get(
 logs = response.json()['logs']
 ```
 
-## Sicurezza
+## Security
+
+### 🛡️ Security Features
+
+* **Mandatory Authentication** - No anonymous access
+* **Intelligent Rate Limiting** - Automatic IP-based protection  
+* **Robust Input Validation** - Key length and format checking
+* **Access Logging** - Tracking of unauthorized attempts
+* **Secure Error Handling** - No information disclosure
+* **Automatic Cleanup** - Removal of expired temporary data
 
 ### 🛡️ Funzionalità di Sicurezza
 
@@ -128,6 +247,13 @@ logs = response.json()['logs']
 * **Gestione Errori Sicura** - Nessuna information disclosure
 * **Pulizia Automatica** - Rimozione dati temporanei scaduti
 
+### ⚙️ Rate Limiting Configuration
+
+- **Maximum Attempts**: 1-100 (default: 10)
+- **Lock Duration**: 60-3600 seconds (default: 300 = 5 min)
+- **Automatic Reset**: On correct authentication
+- **Cron Cleanup**: Daily for optimal performance
+
 ### ⚙️ Configurazione Rate Limiting
 
 - **Tentativi Massimi**: 1-100 (default: 10)
@@ -135,7 +261,7 @@ logs = response.json()['logs']
 - **Reset Automatico**: Su autenticazione corretta
 - **Pulizia Cron**: Giornaliera per prestazioni ottimali
 
-## Sviluppo
+## Development
 
 Per contribuire allo sviluppo del plugin:
 
@@ -148,6 +274,17 @@ Per contribuire allo sviluppo del plugin:
 
 ## Changelog
 
+### 1.1.0 - January 2025
+* **🆕 New**: `DELETE /delete-log` endpoint for controlled deletion
+* **🆕 New**: Configurable "delete after reading" option  
+* **🔧 Improved**: More robust and secure wp-config.php management
+* **🔧 Improved**: Admin interface with integrated endpoint testing
+* **🔧 Improved**: More rigorous input validation
+* **🔧 Improved**: More efficient rate limiting with automatic cleanup
+* **🛡️ Security**: Timing attack protection in authentication
+* **🛡️ Security**: Automatic wp-config.php backup before changes
+* **📚 Docs**: Completely rewritten documentation
+
 ### 1.1.0 - Gennaio 2025
 * **🆕 Nuovo**: Endpoint `DELETE /delete-log` per cancellazione controllata
 * **🆕 Nuovo**: Opzione "cancella dopo lettura" configurabile  
@@ -159,6 +296,14 @@ Per contribuire allo sviluppo del plugin:
 * **🛡️ Sicurezza**: Backup automatico wp-config.php prima modifiche
 * **📚 Docs**: Documentazione completamente riscritta
 
+### 1.0.0 - December 2024
+* 🚀 **Initial Release**
+* ✅ Basic REST API endpoints (`/logs`, `/status`)
+* ✅ Authentication via API key  
+* ✅ Configurable rate limiting
+* ✅ Administrative interface
+* ✅ Automatic wp-config.php integration
+
 ### 1.0.0 - Dicembre 2024
 * 🚀 **Rilascio Iniziale**
 * ✅ Endpoint API REST base (`/logs`, `/status`)
@@ -167,13 +312,26 @@ Per contribuire allo sviluppo del plugin:
 * ✅ Interfaccia amministrativa
 * ✅ Integrazione wp-config.php automatica
 
+## Authors
+
+* **Paolo Battiloro** - *Initial development* - [EyeArt](https://eyeart.it)
+
 ## Autori
 
 * **Paolo Battiloro** - *Sviluppo iniziale* - [EyeArt](https://eyeart.it)
 
+## License
+
+This project is licensed under GPL v2 or later - see the [LICENSE](LICENSE) file for details.
+
 ## Licenza
 
 Questo progetto è sotto licenza GPL v2 o successiva - vedi il file [LICENSE](LICENSE) per i dettagli.
+
+## Acknowledgements
+
+* Thanks to the WordPress community for continued support
+* To all developers who contribute to testing and feedback
 
 ## Ringraziamenti
 
