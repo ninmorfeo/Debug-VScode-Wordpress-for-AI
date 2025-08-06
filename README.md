@@ -2,25 +2,7 @@
 
 ## ✅ Versione Italiana
 
-Accedi**🔍 Accesso Standard ai Log**
-```
-https://TUO-DOMINIO/wp-json/debug-vscode/v1/logs?api_key=Value
-```
-Questo endpoint ti permette**🔍 Standard Log Access**
-```
-https://YOUR-DOMAIN/wp-json/debug-vscode/v1/logs?api_key=Value
-```
-This endpoint allows you to read debug logs in JSON format, perfect for integration with development and monitoring tools.
-
-**🗑️ Read with Automatic Deletion**
-```
-https://YOUR-DOMAIN/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
-```e i log di debug in formato JSON, ideale per l'integrazione con strumenti di sviluppo e monitoraggio.
-
-**🗑️ Lettura con Cancellazione Automatica**
-```
-https://TUO-DOMINIO/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
-``` WordPress tramite API REST sicura. Perfetto per debugging con VSCode e strumenti di sviluppo esterni.
+Accedi ai log di WordPress tramite API REST sicura. Perfetto per debugging con VSCode e strumenti di sviluppo esterni.
 
 ![WordPress Plugin Version](https://img.shields.io/badge/Plugin%20Version-1.1.0-blue.svg)
 ![WordPress Plugin Required PHP Version](https://img.shields.io/badge/Requires%20PHP-7.4%2B-purple.svg)
@@ -87,13 +69,13 @@ Una volta configurato correttamente il plugin, potrai accedere facilmente ai log
 
 **� Accesso Standard ai Log**
 ```
-https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?api_key=Value
+https://TUO-DOMINIO/wp-json/debug-vscode/v1/logs?api_key=Value
 ```
 Questo endpoint ti permette di leggere i log di debug in formato JSON, ideale per l'integrazione con strumenti di sviluppo e monitoraggio.
 
 **🗑️ Lettura con Cancellazione Automatica**
 ```
-https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
+https://TUO-DOMINIO/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
 ```
 Utilizza questo endpoint quando desideri cancellare automaticamente i log dopo ogni lettura, mantenendo il sistema pulito e ottimizzato per le prestazioni.
 
@@ -211,13 +193,13 @@ Once the plugin is properly configured, you can easily access WordPress logs thr
 
 **� Standard Log Access**
 ```
-https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?api_key=Value
+https://DOMAIN/wp-json/debug-vscode/v1/logs?api_key=Value
 ```
 This endpoint allows you to read debug logs in JSON format, perfect for integration with development and monitoring tools.
 
 **🗑️ Read with Automatic Deletion**
 ```
-https://paolob161.sg-host.com/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
+https://DOMAIN/wp-json/debug-vscode/v1/logs?cancella=si&api_key=Value
 ```
 Use this endpoint when you want to automatically delete logs after each read, keeping your system clean and optimized for performance.
 
